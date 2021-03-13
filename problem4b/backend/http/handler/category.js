@@ -17,4 +17,18 @@ function postCategory(req, res) {
   });
 }
 
-module.exports = { postCategory };
+function getAllCategory(req, res) {
+  var name = req.body.name;
+
+  var query = `SELECT * FROM category_tb`;
+
+  DB.query(query, (err, result) => {
+    if (err) {
+      return res.status(500).json(err.detail);
+    }
+
+    return res.status(200).json(result.rows);
+  });
+}
+
+module.exports = { postCategory, getAllCategory };

@@ -1,10 +1,18 @@
 const { DB } = require("../../sql/connect-db");
 
 function getAllBook(req, res) {
-  const query = `SELECT * FROM book_tb`;
+  const query = `
+    SELECT
+      book_tb.id AS id, book_tb.name AS name, book_tb.img AS img, book_tb.publication_year AS year,
+      writer_tb.name AS writer,
+      category_tb.name AS category
+    FROM book_tb
+    LEFT JOIN writer_tb ON book_tb.writer_id = writer_tb.id
+    LEFT JOIN category_tb ON book_tb.category_id = category_tb.id
+    `;
   DB.query(query, (err, result) => {
     if (err) {
-      return res.status(500).json(err.detail);
+      return res.status(500).json(err);
     }
 
     return res.status(200).json(result.rows);
@@ -13,12 +21,18 @@ function getAllBook(req, res) {
 
 function getBookByID(req, res) {
   const query = `
-    SELECT * FROM book_tb
-    WHERE id = ${req.params.id}`;
+   SELECT
+      book_tb.id AS id, book_tb.name AS name, book_tb.img AS img, book_tb.publication_year AS year,
+      writer_tb.name AS writer,
+      category_tb.name AS category
+    FROM book_tb
+    LEFT JOIN writer_tb ON book_tb.writer_id = writer_tb.id
+    LEFT JOIN category_tb ON book_tb.category_id = category_tb.id
+    WHERE book_tb.id = ${req.params.id}`;
 
   DB.query(query, (err, result) => {
     if (err) {
-      return res.status(500).json(err.detail);
+      return res.status(500).json(err);
     }
 
     return res.status(200).json(result.rows);

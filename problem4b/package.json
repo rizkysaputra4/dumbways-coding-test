@@ -1,12 +1,16 @@
 {
-  "name": "teravin-test",
+  "name": "dumbways-test",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "frontend": "cd frontend && npm start",
     "backend": "nodemon ./backend/index.js",
-    "dev": "concurrently --kill-others \"npm run backend\" \"npm run frontend\""
+    "sql": "psql -U postgres -a -f \"./backend/sql/problem4a.sql\"",
+    "installDevFrontend": "cd frontend && npm install",
+    "installDevBackend": "cd backend && npm install",
+    "dev": "concurrently --kill-others \"npm run backend\" \"npm run frontend\"",
+    "installDependency": "concurrently \"npm run installDevFrontend\" \"npm run installDevBackend\""
   },
   "author": "",
   "license": "ISC",

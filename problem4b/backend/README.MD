@@ -55,3 +55,11 @@ json body example:
     {
         "name" : "Atul Gawande",
     }
+
+### Get All Writer
+
+    GET /getallwriter
+
+### Get All Category
+
+    GET /getallcategory

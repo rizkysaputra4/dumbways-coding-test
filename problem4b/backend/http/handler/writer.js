@@ -17,4 +17,18 @@ function postWriter(req, res) {
   });
 }
 
-module.exports = { postWriter };
+function getAllWriter(req, res) {
+  var name = req.body.name;
+
+  var query = `SELECT * FROM writer_tb`;
+
+  DB.query(query, (err, result) => {
+    if (err) {
+      return res.status(500).json(err.detail);
+    }
+
+    return res.status(200).json(result.rows);
+  });
+}
+
+module.exports = { postWriter, getAllWriter };
